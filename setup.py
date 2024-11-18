@@ -1,9 +1,12 @@
 from setuptools import setup, find_packages
+import pathlib
 
+this_directory = pathlib.Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="translatefree",
-    version="1.0.0",
+    version="1.0.2",
     packages=find_packages(),
     install_requires=[
         "selenium>=4.0.0",
@@ -14,7 +17,7 @@ setup(
     author="Shahnoor",
     author_email="shahnr5889@gmail.com",
     description="A free and open source library for translating strings in Python",
-    long_description=open("README.md").read(),
+    long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/pipinstallshan/translatefree",
     project_urls={
