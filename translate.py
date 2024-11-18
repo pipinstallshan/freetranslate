@@ -1,13 +1,35 @@
 import time
 import traceback
 from colorama import Fore, Style
-from .webdriver import driver_return 
+import undetected_chromedriver as uc
+from fake_useragent import UserAgent
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 class TranslateFree:
+    def driver_return(self):
+        options = uc.ChromeOptions()
+        ua = UserAgent(browsers=['chrome'], os=['windows'])
+        options.add_argument("--window-size=150,500")
+        options.add_argument("--disable-automation")
+        options.add_argument("--no-sandbox")
+        options.add_argument('--profile-directory=Default')
+        options.add_argument("--lang=en")
+        options.add_argument("--enable-javascript")
+        options.add_argument("--enable-cookies")
+        options.add_argument(f'--user-agent={ua.random}')
+        prefs = {
+            "profile.default_content_setting_values": {
+                "images": 2
+            }
+        }
+        options.add_experimental_option("prefs", prefs)
+        driver = uc.Chrome(options=options, headless=True, use_subprocess=True)
+        driver.maximize_window()
+        return driver
+
     def __init__(self):
         """
         Initializes the YandexTranslator class.
@@ -18,7 +40,7 @@ class TranslateFree:
     def init_driver(self):
         """Initialize the WebDriver instance if not already done."""
         if self.driver is None:
-            self.driver = driver_return()
+            self.driver = self.driver_return()
             print(Fore.CYAN + "[INFO] WebDriver initialized and running.")
 
     def translate_string(self, text_to_enter, dest, source="en"):
