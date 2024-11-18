@@ -1,14 +1,24 @@
 import time
 import traceback
 from colorama import Fore, Style
-from .webdriver import driver_return 
+from webdriver import driver_return 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-def translate_string(text_to_enter, dest, source="en",):
+# Initialize WebDriver once and keep it running
+driver = None
+
+def init_driver():
+    """Initialize the global WebDriver instance if not already done."""
+    global driver
+    if driver is None:
+        driver = driver_return()
+        print(Fore.CYAN + "[INFO] WebDriver initialized and running.")
+
+def translate_string(text_to_enter, dest, source="en"):
     """
     Translates a given string using Yandex Translate and Selenium.
     
@@ -21,6 +31,8 @@ def translate_string(text_to_enter, dest, source="en",):
         str: Translated text.
     """
     try:
+        # Ensure WebDriver is initialized
+        init_driver()
         driver.get(f"https://translate.yandex.com/?source_lang={source}&target_lang={dest}")
         wait = WebDriverWait(driver, 50)
 
@@ -54,20 +66,3 @@ def translate_string(text_to_enter, dest, source="en",):
         print(Fore.RED + f"[403] An error occurred while translating: {text_to_enter} | Source: {source} | Dest: {dest}")
         # print(Fore.RED + Style.BRIGHT + traceback.format_exc())
         return None
-    
-if __name__ == "__main__":
-    driver = driver_return()
-    for text in [
-            "In the heart of the city, a quiet revolution is unfolding. It’s not happening in the bustling streets or the crowded squares, but in the minds of the people. These are individuals who, after years of feeling disconnected from the world, are now finding their voices. They are using the tools of technology, the vast reach of the internet, and the power of social media to connect, collaborate, and create",
-            "How are you?",
-            "What is your name?",
-            "I love programming",
-            "Can you help me?",
-            "Where is the nearest station?",
-            "Thank you for your help",
-            "I am learning German",
-            "This is a beautiful day",
-            "See you tomorrow"
-        ]:
-        translated_text = translate_string(text, dest='zh', source="en")
-    driver.quit()
