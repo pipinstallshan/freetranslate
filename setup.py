@@ -1,8 +1,9 @@
 from setuptools import setup, find_packages
 
+
 setup(
-    name="freetranslate",
-    version="1.0.3",
+    name="translatefree",
+    version="1.0.0",
     packages=find_packages(),
     install_requires=[
         "selenium>=4.0.0",
@@ -15,11 +16,11 @@ setup(
     description="A free and open source library for translating strings in Python",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/pipinstallshan/freetranslate",
+    url="https://github.com/pipinstallshan/translatefree",
     project_urls={
-        "Bug Tracker": "https://github.com/pipinstallshan/freetranslate/issues",
-        "Documentation": "https://github.com/pipinstallshan/freetranslate#readme",
-        "Source Code": "https://github.com/pipinstallshan/freetranslate",
+        "Bug Tracker": "https://github.com/pipinstallshan/translatefree/issues",
+        "Documentation": "https://github.com/pipinstallshan/translatefree#readme",
+        "Source Code": "https://github.com/pipinstallshan/translatefree",
     },
     classifiers=[
         "Development Status :: 4 - Beta",
