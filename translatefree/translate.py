@@ -9,6 +9,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 class TranslateFree:
+    """
+        Declaring webdriver.
+    """
     def driver_return(self):
         options = uc.ChromeOptions()
         ua = UserAgent(browsers=['chrome'], os=['windows'])
