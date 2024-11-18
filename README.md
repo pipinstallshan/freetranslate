@@ -1,2 +1,2 @@
-# Free Translate
-A free and open source library for translating strings in Python
+# Translate Free
+A free and open source library for translating strings in Python.
