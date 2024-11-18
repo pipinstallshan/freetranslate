@@ -23,11 +23,10 @@ pip install translatefree
 ```
 from translatefree import TranslateFree
 
-# Create a TranslateFree instance
 translate = TranslateFree()
 
-# Translate text from English to Spanish
 text = translate("Hello, world!", "es", "en")
+
 print(text)
 ```
 ## Feedback and Support
