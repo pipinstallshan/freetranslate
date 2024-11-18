@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="translate_no_limit",
-    version="1.0.0",
+    name="translate-no-limit",
+    version="1.0.1",
     packages=find_packages(),
     install_requires=[
         "selenium>=4.0.0",
