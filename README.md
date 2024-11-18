@@ -1,2 +1,2 @@
-# translate_no_limit
-A free library for translating text
+# Free Translate
+A free and open source library for translating strings in Python
