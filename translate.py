@@ -1,7 +1,7 @@
 import time
 import traceback
 from colorama import Fore, Style
-from webdriver import driver_return 
+from .webdriver import driver_return 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait

@@ -5,10 +5,10 @@ setup(
     version="1.0.0",
     packages=find_packages(),
     install_requires=[
-        "selenium>=4.0.0",
-        "undetected-chromedriver>=3.4.6",
-        "fake-useragent>=1.2.0",
-        "colorama>=0.4.6"
+        "selenium",
+        "undetected-chromedriver",
+        "fake-useragent",
+        "colorama"
     ],
     author="Shahnoor",
     author_email="shahnr5889@gmail.com",
