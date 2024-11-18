@@ -41,7 +41,7 @@ class TranslateFree:
         """Initialize the WebDriver instance if not already done."""
         if self.driver is None:
             self.driver = self.driver_return()
-            print(Fore.CYAN + "[INFO] WebDriver initialized and running.")
+            print(Fore.CYAN + "[INFO] Running...")
 
     def translate_string(self, text_to_enter, dest, source="en"):
         """

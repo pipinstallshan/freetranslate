@@ -6,7 +6,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="translatefree",
-    version="1.0.4",
+    version="1.0.6",
     packages=find_packages(),
     install_requires=[
         "selenium>=4.0.0",
