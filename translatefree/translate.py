@@ -44,7 +44,7 @@ class TranslateFree:
         """Initialize the WebDriver instance if not already done."""
         if self.driver is None:
             self.driver = self.driver_return()
-            print(Fore.CYAN + "[INFO] Running...")
+            print(Fore.CYAN + Style.BRIGHT + "[INFO] WEBDRIVER RUNNING..." + Style.RESET_ALL)
 
     def translate_string(self, text_to_enter, dest, source="en"):
         """
@@ -80,10 +80,10 @@ class TranslateFree:
             wait.until(lambda driver: translated_element.text.strip() != "")
 
             translated_text = translated_element.text.strip()
-            print(Fore.GREEN + Style.BRIGHT + f"[200] Translated Text: {translated_text} | Source: {source} | Dest: {dest}")
+            print(Fore.GREEN + Style.BRIGHT + f"[200] TRANSLATED TEXT: {translated_text} | SRC: {source} | DEST: {dest}" + Style.RESET_ALL)
             return translated_text
 
         except Exception as e:
-            print(Fore.RED + f"[403] An error occurred while translating: {text_to_enter} | Source: {source} | Dest: {dest}")
+            print(Fore.RED + Style.BRIGHT + f"[403] ERROR: {text_to_enter} | SRC: {source} | DEST: {dest}" + Style.RESET_ALL)
             # print(Fore.RED + Style.BRIGHT + traceback.format_exc())
             return None
