@@ -1,4 +1,5 @@
 import time
+import random
 import traceback
 from colorama import Fore, Style
 import undetected_chromedriver as uc
@@ -9,19 +10,24 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 class TranslateFree:
+    DEST_GLOBAL = ""
+    SRC_GLOBAL = ""
+    
     """
         Declaring webdriver.
     """
     def driver_return(self):
         options = uc.ChromeOptions()
         ua = UserAgent(browsers=['chrome'], os=['windows'])
-        options.add_argument("--window-size=150,500")
-        options.add_argument("--disable-automation")
-        options.add_argument("--no-sandbox")
-        options.add_argument('--profile-directory=Default')
         options.add_argument("--lang=en")
-        options.add_argument("--enable-javascript")
+        options.add_argument("--no-sandbox")
         options.add_argument("--enable-cookies")
+        options.add_argument("--enable-javascript")
+        options.add_argument("--disable-automation")
+        options.add_argument("--window-size=150,500")
+        options.add_argument('--profile-directory=Default')
+        options.add_argument("--disable-blink-features=AutomationControlled")
+        options.add_argument("--disable-features=IsolateOrigins,site-per-process")
         options.add_argument(f'--user-agent={ua.random}')
         prefs = {
             "profile.default_content_setting_values": {
@@ -29,7 +35,7 @@ class TranslateFree:
             }
         }
         options.add_experimental_option("prefs", prefs)
-        driver = uc.Chrome(options=options, headless=True, use_subprocess=True)
+        driver = uc.Chrome(options=options, headless=False, use_subprocess=True)
         driver.maximize_window()
         return driver
 
@@ -60,14 +66,15 @@ class TranslateFree:
         """
         try:
             self.init_driver()
-            self.driver.get(f"https://translate.yandex.com/?source_lang={source}&target_lang={dest}")
-            wait = WebDriverWait(self.driver, 50)
-
-            contenteditable_element = wait.until(EC.presence_of_element_located((By.ID, "fakeArea")))
-
-            script = f"arguments[0].textContent = '{text_to_enter}';"
-            self.driver.execute_script(script, contenteditable_element)
-
+            if (self.DEST_GLOBAL == "" and self.SRC_GLOBAL == "") or (self.DEST_GLOBAL != dest) or (self.SRC_GLOBAL != source):
+                self.SRC_GLOBAL = source
+                self.DEST_GLOBAL = dest
+                self.driver.get(f"https://translate.yandex.com/?source_lang={source}&target_lang={dest}")
+                
+            time.sleep(random.choice([1.9, 1.6, 2.1, 1.7, 1.8, 1.7, 1.9, 2.0, 1.3]))
+            wait = WebDriverWait(self.driver, 10)
+            contenteditable_element = wait.until(EC.visibility_of_element_located((By.ID, "fakeArea")))
+            contenteditable_element.send_keys(text_to_enter)
             trigger_event_script = """
                 var event = new Event('input', { bubbles: true });
                 arguments[0].dispatchEvent(event);
@@ -78,6 +85,7 @@ class TranslateFree:
                 EC.presence_of_element_located((By.CSS_SELECTOR, ".nI3G8IFy_0MnBmqtxi8Z[contenteditable='true']"))
             )
             wait.until(lambda driver: translated_element.text.strip() != "")
+            contenteditable_element.clear()
 
             translated_text = translated_element.text.strip()
             print(Fore.GREEN + Style.BRIGHT + f"[200] TRANSLATED TEXT: {translated_text} | SRC: {source} | DEST: {dest}" + Style.RESET_ALL)
