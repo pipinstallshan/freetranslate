@@ -35,7 +35,7 @@ class TranslateFree:
             }
         }
         options.add_experimental_option("prefs", prefs)
-        driver = uc.Chrome(options=options, headless=False, use_subprocess=True)
+        driver = uc.Chrome(options=options, headless=True, use_subprocess=True)
         driver.maximize_window()
         return driver
 
